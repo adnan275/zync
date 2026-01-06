@@ -18,7 +18,15 @@ const __dirname = path.resolve();
 app.use(
     cors({
         origin: (origin, callback) => {
-            if (!origin) return callback(null, true);
+            const allowedOrigins = [
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "https://zync-five.vercel.app"
+            ];
+            
+            if (!origin || allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            }
             return callback(null, true);
         },
         credentials: true,
