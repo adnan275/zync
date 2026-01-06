@@ -1,6 +1,5 @@
 import express from "express";
 import "dotenv/config";
-import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
 
@@ -24,7 +23,7 @@ app.use(
                 "http://localhost:3000",
                 "https://zync-five.vercel.app"
             ];
-            
+
             if (!origin || allowedOrigins.includes(origin)) {
                 return callback(null, true);
             }
@@ -35,7 +34,6 @@ app.use(
 );
 
 app.use(express.json());
-app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
