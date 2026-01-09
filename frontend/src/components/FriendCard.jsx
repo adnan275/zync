@@ -1,10 +1,17 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { LANGUAGE_TO_FLAG } from "../constants";
 
 const FriendCard = ({ friend }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (e) => {
+    navigate(`/profile/${friend._id}`);
+  };
+
   return (
     <div
-      className="group glass-card rounded-2xl p-5 hover:border-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] relative overflow-hidden"
+      onClick={handleCardClick}
+      className="group glass-card rounded-2xl p-5 hover:border-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] relative overflow-hidden cursor-pointer"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
@@ -31,8 +38,10 @@ const FriendCard = ({ friend }) => {
 
         <Link
           to={`/chat/${friend._id}`}
-          className="btn btn-primary btn-sm w-full rounded-xl shadow-lg hover:shadow-primary/30 transition-all"
-          onClick={(e) => e.stopPropagation()}
+          className="btn btn-primary btn-sm w-full rounded-xl shadow-lg hover:shadow-primary/30 transition-all relative z-20"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           Message
         </Link>

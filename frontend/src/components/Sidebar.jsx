@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
-import { BellIcon, HomeIcon, UsersIcon } from "lucide-react";
+import { BellIcon, HomeIcon, UsersIcon, UserIcon } from "lucide-react";
 import Logo from "./Logo";
 
 const Sidebar = () => {
@@ -54,22 +54,40 @@ const Sidebar = () => {
           <BellIcon className={`size-5 transition-transform group-hover:scale-110 ${currentPath === "/notifications" ? "text-white" : ""}`} />
           <span className="font-medium">Notifications</span>
         </Link>
+
+        <Link
+          to="/profile"
+          className={`flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-300 group ${currentPath === "/profile"
+            ? "bg-primary text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]"
+            : "text-base-content/60 hover:bg-white/5 hover:text-white"
+            }`}
+        >
+          <div className="relative">
+            <div className={`w-5 h-5 rounded-full overflow-hidden ring-1 transition-all ${currentPath === "/profile" ? "ring-white/30" : "ring-white/10"}`}>
+              <img src={authUser?.profilePic} alt="Profile" className="w-full h-full object-cover" />
+            </div>
+            {currentPath !== "/profile" && (
+              <div className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-success rounded-full ring-1 ring-base-100"></div>
+            )}
+          </div>
+          <span className="font-medium">My Profile</span>
+        </Link>
       </nav>
 
-      <div className="p-4 m-4 rounded-2xl bg-gradient-to-tr from-base-200 to-base-100 border border-white/5 shadow-lg">
+      <Link to="/profile" className="block p-4 m-4 rounded-2xl bg-gradient-to-tr from-base-200 to-base-100 border border-white/5 shadow-lg hover:shadow-primary/20 hover:scale-[1.02] transition-all duration-300 group">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-white/10">
+            <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-white/10 group-hover:ring-primary/30 transition-all">
               <img src={authUser?.profilePic} alt="User Avatar" className="w-full h-full object-cover" />
             </div>
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-success rounded-full ring-2 ring-base-100"></div>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm text-white truncate">{authUser?.fullName}</p>
+            <p className="font-semibold text-sm text-white truncate group-hover:text-primary transition-colors">{authUser?.fullName}</p>
             <p className="text-xs text-base-content/50 truncate">Online</p>
           </div>
         </div>
-      </div>
+      </Link>
     </aside>
   );
 };

@@ -6,10 +6,12 @@ import { useState } from "react";
 import { capitialize } from "../lib/utils";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 const FriendsPage = () => {
     const [activeTab, setActiveTab] = useState("friends");
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
 
     const { data: friends, isLoading: loadingFriends } = useQuery({
@@ -153,7 +155,8 @@ const FriendsPage = () => {
                                 {recommendedUsers.map((user) => (
                                     <div
                                         key={user._id}
-                                        className="glass-card rounded-3xl p-6 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:border-primary/30 group"
+                                        onClick={() => navigate(`/profile/${user._id}`)}
+                                        className="glass-card rounded-3xl p-6 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:border-primary/30 group cursor-pointer"
                                     >
                                         <div className="flex items-start justify-between mb-4">
                                             <div className="avatar size-14 rounded-full ring-2 ring-white/5 group-hover:ring-primary/50 transition-all">
@@ -178,7 +181,10 @@ const FriendsPage = () => {
 
                                         <button
                                             className="btn btn-outline btn-primary btn-sm w-full rounded-xl hover:shadow-primary/20"
-                                            onClick={() => sendRequestMutation(user._id)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                sendRequestMutation(user._id);
+                                            }}
                                             disabled={sendingRequest}
                                         >
                                             <UserPlusIcon className="size-4 mr-2" />
@@ -205,7 +211,11 @@ const FriendsPage = () => {
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {friendRequests.incomingReqs.map(req => (
-                                    <div key={req._id} className="glass-card rounded-3xl p-6 flex items-center gap-4 hover:border-primary/40 transition-colors">
+                                    <div
+                                        key={req._id}
+                                        onClick={() => navigate(`/profile/${req.sender?._id}`)}
+                                        className="glass-card rounded-3xl p-6 flex items-center gap-4 hover:border-primary/40 transition-colors cursor-pointer"
+                                    >
                                         <div className="avatar size-16 rounded-full ring-2 ring-white/10">
                                             <img src={req.sender?.profilePic || "/avatar.png"} alt={req.sender?.fullName || "User"} className="rounded-full object-cover" />
                                         </div>
@@ -214,7 +224,10 @@ const FriendsPage = () => {
                                             <p className="text-xs text-base-content/60 mb-3">Wants to connect with you</p>
                                             <button
                                                 className="btn btn-primary btn-sm w-full rounded-lg shadow-md hover:shadow-primary/30"
-                                                onClick={() => acceptRequestMutation(req._id)}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    acceptRequestMutation(req._id);
+                                                }}
                                             >
                                                 <UserCheckIcon className="size-4 mr-2" />
                                                 Accept

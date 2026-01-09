@@ -140,3 +140,19 @@ export async function getOutgoingFriendReqs(req, res) {
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+
+export async function getUserProfile(req, res) {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id).select("-password");
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.log("Error in getUserProfile controller", error.message);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}

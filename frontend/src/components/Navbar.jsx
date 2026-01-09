@@ -37,19 +37,7 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <div className="h-8 w-px bg-white/10 mx-1"></div>
 
-            <div className="flex items-center gap-3 pl-1">
-              <div className="hidden md:block text-right">
-                <p className="text-sm font-medium text-white leading-none">{authUser?.fullName}</p>
-                <p className="text-xs text-base-content/50 mt-1">Online</p>
-              </div>
-              <div className="relative group cursor-pointer">
-                <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary/50 transition-all">
-                  <img src={authUser?.profilePic} alt="User Avatar" className="w-full h-full object-cover" />
-                </div>
-              </div>
-            </div>
 
             <button
               className="p-2 rounded-full hover:bg-error/10 text-base-content/70 hover:text-error transition-all ml-2"
