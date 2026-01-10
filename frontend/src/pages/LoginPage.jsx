@@ -37,7 +37,7 @@ const LoginPage = () => {
             </div>
             <h2 className="text-3xl font-bold text-white mb-2">Welcome Back</h2>
             <p className="text-base-content/60">
-              Sign in to continue your conversations
+              Login in to continue your conversations
             </p>
           </div>
 
@@ -90,10 +90,10 @@ const LoginPage = () => {
               {isPending ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
-                  Signing In...
+                  Logging In...
                 </>
               ) : (
-                "Sign In"
+                "Login"
               )}
             </button>
           </form>
