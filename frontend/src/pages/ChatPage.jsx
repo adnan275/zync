@@ -42,8 +42,6 @@ const ChatPage = () => {
       if (!tokenData?.token || !authUser) return;
 
       try {
-        console.log("Initializing stream chat client...");
-
         const client = StreamChat.getInstance(STREAM_API_KEY);
 
         await client.connectUser(
@@ -55,12 +53,7 @@ const ChatPage = () => {
           tokenData.token
         );
 
-
         const channelId = [authUser._id, targetUserId].sort().join("-");
-
-
-
-
 
         const currChannel = client.channel("messaging", channelId, {
           members: [authUser._id, targetUserId],
